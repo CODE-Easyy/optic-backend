@@ -1,6 +1,7 @@
 # OPTIC SHOP
 
 It is optic shop "S-OPTIC" created by **CLAY**
-# optic-backend
-# optic-backend
-# optic-backend
+
+#
+# API INFO
+https://docs.google.com/document/d/11IklZyeJVaTvsd5p-jPsWMsBZtx-9eNjOqrysVFORVM/edit?usp=sharing
