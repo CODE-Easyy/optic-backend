@@ -2,11 +2,9 @@ from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
-from django.views.generic.edit import UpdateView
-from django.urls import reverse_lazy
+from django.contrib import messages
 
 from products.models import Product, SubCategory
-from products.forms import GlassesDetailForm
 
 
 @login_required(login_url='login')
@@ -44,8 +42,11 @@ def glasses(request):
     return render(request, 'dashboard/products/products.html', context)
 
 
-class GlassesDetailView(UpdateView):
-    model = Product
-    template_name = 'dashboard/products/detail.html'
-    form_class = GlassesDetailForm
-    success_url = reverse_lazy('products')
+def glasses_detail(request, pk=None):
+    product = Product.objects.get(id=pk)
+    subcats = SubCategory.objects.filter(cat=product.cat)
+    context = {
+        'product': product,
+        'subcats': subcats,
+    }
+    return render(request, 'dashboard/products/detail.html', context)

@@ -59,7 +59,7 @@ class ProductsList(ListAPIView):
 
         paginator = ProductPagination()
         page = paginator.paginate_queryset(qs, self.request)
-        serializer = ProductsList(page, many=True)
+        serializer = ProductsListSerializer(page, many=True)
         return paginator.get_paginated_response(serializer.data)
 
 

@@ -4,13 +4,12 @@ from .views import  (
     dashboard,
     products,
     glasses,
-
-    GlassesDetailView
+    glasses_detail
 )
 
 urlpatterns = [
     path('', dashboard, name='dashboard'),
     path('products/', products, name='products'),
     path('products/glasses/', glasses, name='glasses'),
-    path('products/glasses/detail/<int:pk>/', GlassesDetailView.as_view(), name='glasses_detail'),
+    path('products/glasses/detail/<int:pk>/', glasses_detail, name='glasses_detail'),
 ]

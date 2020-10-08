@@ -2,14 +2,77 @@
 {% load static %}
 
 {% block styles %}
+    <link rel="stylesheet" href="{% static 'products/detail.css' %}">
 {% endblock %}
 
 {% block content %}
     <div class="container p-5 content-block">
         <form action="" method="post">
             {% csrf_token %}
-            {{ form.as_p }}
+            <div class="row">
+                <div class="col-md">
+                    <h5>Название</h5>
+                    <input type="text" class="form-control" value="{{ product.title }}">
+                </div>
+                <div class="col-md">
+                    <h5>Цена</h5>
+                    <input type="text" class="form-control" value="{{ product.price }}">
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md">
+                    <h5>Категория</h5>
+                    <select type="text" class="form-control cat" value="{{ product.cat }}">
+                        <option class="bg-info" value="glasses">Очки</option>
+                        <option class="bg-info" value="frames">Линзы</option>
+                        <option class="bg-info" value="outlet">Outlet</option>
+                    </select>
+                </div>
+                <div class="col-md">
+                    <h5>Субкатерогия</h5>
+                    <select type="text" class="form-control subcat" value="{{ product.subcat }}">
+                        {% if not product.subcat_id %}
+                            <option selected class="bg-info" value=0>Select....</option>
+                        {% else %}
+                            <option class="bg-dark1" value=0>Select....</option>
+                        {% endif %}
+                        {% for el in subcats %}
+                            <option class="bg-info" value="{{ el.id }}">{{ el.value }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <hr>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox">
+                    <input type="checkbox" class="form-check-input" value="{{ product.is_new }}" id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+                        НОВЫЙ
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox">
+                    <input type="checkbox" class="form-check-input" value="{{ product.is_leader }}" id="defaultCheck2">
+                    <label class="form-check-label" for="defaultCheck2">
+                        ТОП
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox">
+                    <input type="checkbox" class="form-check-input" value="{{ product.is_discount }}"
+                           id="defaultCheck3">
+                    <label class="form-check-label" for="defaultCheck3">
+                        РАСПРОДАЖА
+                    </label>
+                </div>
+            <hr>
+
             <input type="submit" value="Сохранить">
         </form>
     </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'products/detail.js' %}"></script>
 {% endblock %}

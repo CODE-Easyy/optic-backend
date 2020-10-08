@@ -11,6 +11,9 @@ class GlassesDetailForm(ModelForm):
                                     'placeholder': 'Введите название Очков',
                                 }
                             ))
+    # cat = forms.CharField(label='Категория',
+    #                         widget=forms.Select(
+    #                         ))
     description = forms.CharField(label='Описание',
                             widget=forms.Textarea(
                                 attrs={
@@ -19,6 +22,7 @@ class GlassesDetailForm(ModelForm):
                                 }
                             ))
 
+
     class Meta:
         model = Product
-        fields = '__all__'
+        fields = ('title', 'cat', 'subcat', 'price', 'img_1', 'img_2', 'img_3', 'is_discount', 'discount', 'is_leader', 'is_new', 'brand', 'material', 'sex', 'description')
