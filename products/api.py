@@ -2,26 +2,36 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.generics import (
     ListAPIView,
-    RetrieveAPIView,
-    CreateAPIView,
-    UpdateAPIView,
 )
 
 from .models import (
     Product,
-    OpticalPower,
-    Radius,
-    Brand,
-    Material,
-    SubCategory,
-    Volume,
+    SubCategory
 )
 
 from .serializers import (
     ProductsListSerializer,
+    SubCategoriesSerializer
+
 )
 
 from .map_filters import getQS
+from .paginations import ProductPagination
+
+
+class SubCategoriesList(ListAPIView):
+    queryset = SubCategory.objects.all()
+    serializer_class = SubCategoriesSerializer
+
+    def get(self, request, *args, **kwargs):
+        qs = SubCategory.objects.all()
+        cat = self.request.query_params.get('cat', None)
+
+        if cat:
+            qs = qs.filter(cat=cat)
+
+        serializer = SubCategoriesSerializer(qs, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class ProductsList(ListAPIView):
@@ -47,8 +57,11 @@ class ProductsList(ListAPIView):
             if subcat:
                 qs = qs.filter(subcat=subcat)
 
-        serializer = ProductsListSerializer(qs, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        paginator = ProductPagination()
+        page = paginator.paginate_queryset(qs, self.request)
+        serializer = ProductsList(page, many=True)
+        return paginator.get_paginated_response(serializer.data)
+
 
 
 

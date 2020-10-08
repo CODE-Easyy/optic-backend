@@ -10,6 +10,12 @@ from .models import (
 )
 
 
+
+class SubCategoriesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SubCategory
+        fields = '__all__'
+
 class ProductsListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product

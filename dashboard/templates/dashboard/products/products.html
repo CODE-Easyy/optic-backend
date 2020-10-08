@@ -1,0 +1,84 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'products/style.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container p-5 content-block">
+        <div class="col-md">
+            <div>
+                <h5>{{ title }}</h5>
+            </div>
+            <div>
+                <table class="table table-striped">
+                    <tr>
+                        <th>Название</th>
+                        <th>Категория</th>
+                        <th>Субкатегория</th>
+                        <th>Цена</th>
+                        <th></th>
+                    </tr>
+
+                    {% for product in products %}
+                        <tr>
+                            <td>{{ product.title }}</td>
+                            <td>
+                                {% if product.cat == 'frames' %}
+                                    Линзы
+                                {% elif product.cat == 'glasses' %}
+                                    Очки
+                                {% elif product.cat == 'outlet' %}
+                                    Outlet
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if product.subcat > 0 %}
+                                    {% for subcat in subcategories %}
+                                        {% if subcat.id == product.subcat %}
+                                            {{ subcat.value }}
+                                        {% endif %}
+                                    {% endfor %}
+                                {% else %}
+                                    ---
+                                {% endif %}
+                            </td>
+                            <td>
+                                {{ product.price }} T
+                            </td>
+                            <td>
+                                <a href="{% url 'glasses_detail' pk=product.id %}" class="btn btn-sm btn-info">Инфо</a>
+                            </td>
+                        </tr>
+
+                    {% endfor %}
+                </table>
+                {% if products.has_other_pages %}
+                    <ul class="pagination">
+                        {% if products.has_previous %}
+                            <li class="page-item"><a class="page-link" href="?page={{ products.previous_page_number }}">&laquo;</a>
+                            </li>
+                        {% else %}
+                            <li class="disabled page-item"><span class="page-link">&laquo;</span></li>
+                        {% endif %}
+                        {% for i in products.paginator.page_range %}
+                            {% if products.number == i %}
+                                <li class="active page-item"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span>
+                                </li>
+                            {% else %}
+                                <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                        {% if products.has_next %}
+                            <li class="page-item"><a class="page-link" href="?page={{ products.next_page_number }}">&raquo;</a>
+                            </li>
+                        {% else %}
+                            <li class="disabled page-item"><span class="page-link">&raquo;</span></li>
+                        {% endif %}
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
