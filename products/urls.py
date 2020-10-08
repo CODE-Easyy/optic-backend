@@ -6,13 +6,15 @@ from .api import (
     ProductsList,
     BrandsList,
     RadiusesList,
-    OpticalPowersList
+    OpticalPowersList,
+    SubCategoriesList,
 )
 
 
 
 urlpatterns = [
     path('list/', ProductsList.as_view()),
+    path('subcategories/', SubCategoriesList.as_view()),
 
 
     # FILTER
