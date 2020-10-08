@@ -2,6 +2,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.generics import (
     ListAPIView,
+    RetrieveAPIView
 )
 
 from .models import (
@@ -11,7 +12,8 @@ from .models import (
 
 from .serializers import (
     ProductsListSerializer,
-    SubCategoriesSerializer
+    SubCategoriesSerializer,
+    ProductDetailSerializer,
 
 )
 
@@ -33,6 +35,9 @@ class SubCategoriesList(ListAPIView):
         serializer = SubCategoriesSerializer(qs, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+class ProductDetail(RetrieveAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductDetailSerializer
 
 class ProductsList(ListAPIView):
     queryset = Product.objects.all()
