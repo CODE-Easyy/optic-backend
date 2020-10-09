@@ -9,6 +9,7 @@ from .models import (
     Product,
     SubCategory
 )
+from events.models import Event
 
 from .serializers import (
     ProductsListSerializer,
@@ -48,6 +49,13 @@ class ProductsList(ListAPIView):
         cat = self.request.query_params.get('cat', None)
         subcat = self.request.query_params.get('subcat', None)
         bool = self.request.query_params.get('bool', None)
+        event = self.request.query_params.get('event', None)
+
+        if event:
+            e = Event.objects.get(id=int(event))
+            serializer = ProductsListSerializer(e.products, many=True, context={'request': request})
+            return Response(serializer.data, status.HTTP_200_OK)
+
 
         if bool:
             if bool == 'new':

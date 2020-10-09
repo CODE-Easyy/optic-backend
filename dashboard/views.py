@@ -68,15 +68,19 @@ def create_glasses(request):
 
 def glasses_detail(request, pk=None):
     product = Product.objects.get(id=pk)
-    form = GlassesForm(instance=product)
+    form = GlassesForm(instance=product, cat=product.cat)
     if request.method == 'POST':
+        print(product.img_1)
+
         form = GlassesForm(request.POST, instance=product)
         if form.is_valid():
             form.save()
             return redirect('products')
     context = {
-        'form':form
+        'form':form,
+        'product': product,
     }
+
     return render(request, 'dashboard/products/detail.html', context)
 
 def delete_glasses(request, pk=None):

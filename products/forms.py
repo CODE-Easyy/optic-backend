@@ -1,7 +1,8 @@
 from django.forms import ModelForm
 from django import forms
 
-from .models import Product, SubCategory
+from .models import Product, SubCategory, Brand, Material
+
 
 class GlassesForm(ModelForm):
     CATEGORIES = [
@@ -22,31 +23,126 @@ class GlassesForm(ModelForm):
                                     'placeholder': 'Введите название Очков',
                                 }
                             ))
+    price = forms.IntegerField(label='Цена',
+                               widget=forms.NumberInput(
+                                   attrs={
+                                       'class': 'form-control  ',
+                                       'placeholder': 'Введите цену',
+                                   }
+                               ))
+    img_1 = forms.ImageField(label='Фото №1',
+                             required=False,
+                             widget=forms.FileInput(
+                                 attrs={
+                                     'class': 'py-3',
+                                     'placeholder': 'Введите название Очков',
+                                 }
+                             ))
+    img_2 = forms.ImageField(label='Фото №2',
+                             required=False,
+                             widget=forms.FileInput(
+                                 attrs={
+                                     'class': 'py-3',
+                                 }
+                             ))
+    img_3 = forms.ImageField(label='Фото №3',
+                             required=False,
+                             widget=forms.FileInput(
+                                 attrs={
+                                     'class': 'py-3',
+                                 }
+                             ))
+    is_new = forms.BooleanField(label='Новый?',
+                                required=False,
+                                widget=forms.CheckboxInput(
+                                    attrs={
+                                        'class': 'py-4',
+                                    }
+                                ))
+    is_discount = forms.BooleanField(label='Скидка?',
+                                     required=False,
+                                     widget=forms.CheckboxInput(
+                                         attrs={
+                                             'class': 'py-4',
+                                         }
+                                     ))
+    is_leader = forms.BooleanField(label='ТОП?',
+                                   required=False,
+                                   widget=forms.CheckboxInput(
+                                       attrs={
+                                           'class': 'py-4',
+                                       }
+                                   ))
+    discount = forms.IntegerField(label='Размер скидки',
+                                  required=False,
+                                  widget=forms.NumberInput(
+                                      attrs={
+                                          'class': 'form-control',
+                                          'placeholder': 'Введите цену',
+                                      }
+                                  ))
     cat = forms.ChoiceField(label='Категория',
-                                 choices=CATEGORIES,
+                            choices=CATEGORIES,
                             widget=forms.Select(
                                 attrs={
-                                    'class': 'form-control col-md-6',
+                                    'class': 'form-control ',
+                                    'placeholder': 'Выбор',
+                                }
+                            ))
+    sex = forms.ChoiceField(label='Пол',
+                            required=False,
+                            choices=SEXES,
+                            widget=forms.Select(
+                                attrs={
+                                    'class': 'form-control ',
                                     'placeholder': 'Выбор',
                                 }
                             ))
     subcat = forms.ModelChoiceField(label='Субкатегория',
-                            queryset= SubCategory.objects.all(),
-                            widget=forms.Select(
-                                attrs={
-                                    'class': 'form-control col-md-6',
-                                    'placeholder': 'Выбор',
-                                }
-                            ))
+                                    required=False,
+                                    queryset=SubCategory.objects.all().filter(),
+                                    widget=forms.Select(
+                                        attrs={
+                                            'class': 'form-control',
+                                            'placeholder': 'Выбор',
+                                        }
+                                    ))
+    brand = forms.ModelChoiceField(label='Бренд',
+                                   required=False,
+                                   queryset=Brand.objects.all(),
+                                   widget=forms.Select(
+                                       attrs={
+                                           'class': 'form-control',
+                                           'placeholder': 'Выбор',
+                                       }
+                                   ))
+    material = forms.ModelChoiceField(label='Материал',
+                                      required=False,
+                                      queryset=Material.objects.all(),
+                                      widget=forms.Select(
+                                          attrs={
+                                              'class': 'form-control',
+                                              'placeholder': 'Выбор',
+                                          }
+                                      ))
     description = forms.CharField(label='Описание',
-                            widget=forms.Textarea(
-                                attrs={
-                                    'class': 'form-control',
-                                    'placeholder': 'Введите описание Очков',
-                                }
-                            ))
+                                  required=False,
+                                  widget=forms.Textarea(
+                                      attrs={
+                                          'class': 'form-control',
+                                          'placeholder': 'Введите описание Очков',
+                                      }
+                                  ))
 
+    def __init__(self, *args, **kwargs):
+        cat_val = kwargs.pop('cat', None)
+        super(GlassesForm, self).__init__(*args, **kwargs)
+
+        if cat_val:
+            self.fields['subcat'].queryset = SubCategory.objects.filter(cat=cat_val)
 
     class Meta:
         model = Product
-        fields = ('title', 'cat', 'subcat', 'price', 'img_1', 'img_2', 'img_3', 'is_discount', 'discount', 'is_leader', 'is_new', 'brand', 'material', 'sex', 'description')
+        fields = (
+        'is_discount', 'is_new', 'is_leader', 'title', 'cat', 'subcat', 'price', 'img_1', 'img_2', 'img_3', 'discount',
+        'brand', 'material', 'sex', 'description')

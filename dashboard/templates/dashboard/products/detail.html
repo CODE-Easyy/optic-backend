@@ -1,5 +1,17 @@
 {% extends 'dashboard/base.html' %}
-{% load static %}
+
+{% block styles %}
+    <style>
+        form label {
+            color: black !important;
+        }
+
+        form * {
+            margin: 0 auto;
+            margin-bottom: 10px;
+        }
+    </style>
+{% endblock %}
 
 
 {% block content %}
@@ -7,9 +19,130 @@
         <a href="{% url 'products' %}" class="btn btn-primary m-3">Назад</a>
         <form action="" method="POST">
             {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit">
+            <div class="row">
+                <div class="col-md-4">
+                    {% if product.img_1 %}
+                        {{ form.img_1.label }}
+                        <img width="100%" src="{{ product.img_1.url }}" alt="">
+                    {% endif %}
+                </div>
+                <div class="col-md-4">
+                    {% if product.img_2 %}
+                        <img width="100%" src="{{ product.img_2.url }}" alt="">
+                    {% endif %}
+                </div>
+                <div class="col-md-4">
+                    {% if product.img_3 %}
+                        <img width="100%" src="{{ product.img_2.url }}" alt="">
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row text-center">
+                <div class="col-md">
+                    {{ form.is_new.label }}
+                    {{ form.is_new }}
+                </div>
+                <div class="col-md">
+                    {{ form.is_leader.label }}
+                    {{ form.is_leader }}
+                </div>
+                <div class="col-md">
+                    {{ form.is_discount.label }}
+                    {{ form.is_discount }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md">
+                    {{ form.title.label }}
+                    {{ form.title }}
+                </div>
+                <div class="col-md">
+                    {{ form.price.label }}
+                    {{ form.price }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md">
+                    {{ form.cat.label }}
+                    {{ form.cat }}
+                </div>
+                <div class="col-md">
+                    {{ form.subcat.label }}
+                    {{ form.subcat }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md">
+                    {{ form.discount.label }}
+                    {{ form.discount }}
+                </div>
+                <div class="col-md">
+                    {{ form.sex.label }}
+                    {{ form.sex }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md">
+                    {{ form.brand.label }}
+                    {{ form.brand }}
+                </div>
+                <div class="col-md">
+                    {{ form.material.label }}
+                    {{ form.material }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md p-0 text-center">
+                    {{ form.img_1.label }}
+                    {{ form.img_1 }}
+                </div>
+                <div class="col-md p-0 text-center">
+                    {{ form.img_2.label }}
+                    {{ form.img_2 }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md p-0 text-center">
+                    {{ form.img_3.label }}
+                    {{ form.img_3 }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md">
+                    {{ form.description.label }}
+                    {{ form.description }}
+                </div>
+            </div>
+
+            <input type="submit" class="btn btn-success m-3">
+
         </form>
     </div>
 {% endblock %}
 
+
+{% block scripts %}
+    <script>
+        $('select[name=cat]').on('change', function () {
+            $('select[name=subcat]').empty();
+            $('select[name=subcat]').prepend('<option value="Not selected" selected disabled>Выбор</option>');
+            if ($("#id_cat option:selected").text() != "{{ product.cat }}") {
+                category_id = $('select[name=cat]').val();
+                alert(category_id)
+                request_url = `http://127.0.0.1:8000/api/products/subcategories/?cat=${category_id}`
+                $.ajax({
+                    type: "GET",
+                    url: request_url,
+                    success: function (res) {
+                        $('select[name=subcat]').empty();
+                        $('select[name=subcat]').append('<option value="1">Выбор..</option>');
+                        res.map((row, _) => {
+                            $('select[name=subcat]').append('<option value="' + row.id + '">' + row.value + '</option>');
+                        })
+
+                    }
+                })
+            }
+        });
+    </script>
+{% endblock %}
