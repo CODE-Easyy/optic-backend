@@ -56,6 +56,9 @@ class ProductsList(ListAPIView):
                 qs = qs.filter(is_leader=True)
             elif bool == 'discount':
                 qs = qs.filter(is_discount=True)
+
+            serializer = ProductsListSerializer(qs, many=True, context={'request': request})
+            return Response(serializer.data, status.HTTP_200_OK)
         else:
             if cat:
                 qs = qs.filter(cat=cat)
@@ -64,7 +67,7 @@ class ProductsList(ListAPIView):
 
         paginator = ProductPagination()
         page = paginator.paginate_queryset(qs, self.request)
-        serializer = ProductsListSerializer(page, many=True)
+        serializer = ProductsListSerializer(page, many=True, context={'request': request})
         return paginator.get_paginated_response(serializer.data)
 
 

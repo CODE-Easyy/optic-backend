@@ -19,7 +19,9 @@ class SubCategoriesSerializer(serializers.ModelSerializer):
 class ProductsListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = ('id', 'title', 'price', 'is_discount', 'discount', 'img_1', 'is_new', 'is_leader')
+        fields = ('id', 'title', 'price', 'is_discount', 'discount', 'img_1', 'is_new', 'is_leader', 'cat', 'subcat')
+
+
 
 class ProductDetailSerializer(serializers.ModelSerializer):
     class Meta:

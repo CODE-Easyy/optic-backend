@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib import messages
 
-from products.models import Product, SubCategory
+from products.models import Product, SubCategory, Brand, Material
 
 
 @login_required(login_url='login')
@@ -45,8 +45,12 @@ def glasses(request):
 def glasses_detail(request, pk=None):
     product = Product.objects.get(id=pk)
     subcats = SubCategory.objects.filter(cat=product.cat)
+    brands = Brand.objects.all()
+    materials = Material.objects.all()
     context = {
         'product': product,
         'subcats': subcats,
+        'brands': brands,
+        'materials': materials,
     }
     return render(request, 'dashboard/products/detail.html', context)

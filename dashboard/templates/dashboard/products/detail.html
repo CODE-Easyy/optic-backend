@@ -31,41 +31,103 @@
                 </div>
                 <div class="col-md">
                     <h5>Субкатерогия</h5>
-                    <select type="text" class="form-control subcat" value="{{ product.subcat }}">
-                        {% if not product.subcat_id %}
+                    <select class="form-control subcat" value="{{ product.subcat_id }}">
+                        {% if not product.subcat %}
                             <option selected class="bg-info" value=0>Select....</option>
                         {% else %}
-                            <option class="bg-dark1" value=0>Select....</option>
+                            <option class="bg-info" value=0>Select....</option>
                         {% endif %}
                         {% for el in subcats %}
-                            <option class="bg-info" value="{{ el.id }}">{{ el.value }}</option>
+                            {% if el.id == product.subcat_id %}
+                                <option selected class="bg-info" value="{{ el.id }}">{{ el.value }}</option>
+                            {% else %}
+                                <option class="bg-info" value="{{ el.id }}">{{ el.value }}</option>
+                            {% endif %}
                         {% endfor %}
                     </select>
                 </div>
             </div>
             <hr>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox">
-                    <input type="checkbox" class="form-check-input" value="{{ product.is_new }}" id="defaultCheck1">
-                    <label class="form-check-label" for="defaultCheck1">
-                        НОВЫЙ
-                    </label>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox">
+                <input type="checkbox" class="form-check-input" {% if product.is_new %}
+                       checked {% endif %}id="defaultCheck1">
+                <label class="form-check-label" for="defaultCheck1">
+                    НОВЫЙ
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox">
+                <input type="checkbox" class="form-check-input" {% if product.is_leader %} checked {% endif %}
+                       id="defaultCheck2">
+                <label class="form-check-label" for="defaultCheck2">
+                    ТОП
+                </label>
+            </div>
+            <div class="form-check">
+                <div class="row">
+                    <div class="col-md">
+                        <input class="form-check-input" type="checkbox">
+                        <input type="checkbox" class="form-check-input is_discount" {% if product.is_discount %}
+                               checked {% endif %}
+                               id="defaultCheck3">
+                        <label class="form-check-label" for="defaultCheck3">
+                            РАСПРОДАЖА
+                        </label>
+                    </div>
+                    <div class="col-md ">
+                        <h5>Размер скидки</h5>
+                        <input id="discount" type="text" class="form-control disabled disabled-tooltip-shield"
+                               value="{{ product.discount }}"
+                               placeholder="Введите процент скидки...">
+                    </div>
                 </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox">
-                    <input type="checkbox" class="form-check-input" value="{{ product.is_leader }}" id="defaultCheck2">
-                    <label class="form-check-label" for="defaultCheck2">
-                        ТОП
-                    </label>
+            </div>
+            <hr>
+
+            <div class="row">
+                <div class="col-md">
+                    <select class="form-control" id="brand" name="brand" value="{{ product.brand.id }}">
+                        {% if not product.brand %}
+                            <option selected class="bg-info" value=0>Select....</option>
+                        {% else %}
+                            <option class="bg-info" value=0>Select....</option>
+                        {% endif %}
+                        {% for el in brands %}
+                            {% if el.id == product.subcat_id %}
+                                <option selected class="bg-info" value="{{ el.id }}">{{ el.value }}</option>
+                            {% else %}
+                                <option class="bg-info" value="{{ el.id }}">{{ el.value }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
                 </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox">
-                    <input type="checkbox" class="form-check-input" value="{{ product.is_discount }}"
-                           id="defaultCheck3">
-                    <label class="form-check-label" for="defaultCheck3">
-                        РАСПРОДАЖА
-                    </label>
+                <div class="col-md">
+                    <select class="form-control" value="{{ product.material_id }}">
+                        {% if not product.material %}
+                            <option selected class="bg-info" value=0>Select....</option>
+                        {% else %}
+                            <option class="bg-info" value=0>Select....</option>
+                        {% endif %}
+                        {% for el in materials %}
+                            {% if el.id == product.subcat_id %}
+                                <option selected class="bg-info" value="{{ el.id }}">{{ el.value }}</option>
+                            {% else %}
+                                <option class="bg-info" value="{{ el.id }}">{{ el.value }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
                 </div>
+                <div class="col-md">
+                    <select class="form-control" value="{{ product.sex }}">
+                        <option class="bg-info" value="man">Мужские</option>
+                        <option class="bg-info" value="woman">Женские</option>
+                        <option class="bg-info" value="unisex">Унисекс</option>
+                        <option class="bg-info" value="child">Детские</option>
+                    </select>
+                </div>
+            </div>
+
             <hr>
 
             <input type="submit" value="Сохранить">

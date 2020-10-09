@@ -8,10 +8,22 @@
 {% block content %}
     <div class="container p-5 content-block">
         <div class="col-md">
-            <div>
-                <h5>{{ title }}</h5>
+            <div class="d-flex justify-content-between mb-3">
+                <h3>{{ title }}</h3>
+                <div class="row p-2">
+                    <div class="col-md">
+                        <input type="text" class="form-control" >
+                    </div>
+                    <div class="col-md">
+                        <a href="" class="btn btn-success">Искать</a>
+                    </div>
+                    <div class="col-md">
+                        <a href="" class="btn btn-success">Создать</a>
+                    </div>
+                </div>
             </div>
             <div>
+
                 <table class="table w-100">
                     <tr>
                         <th>Название</th>
@@ -78,6 +90,7 @@
                         {% endif %}
                     </ul>
                 {% endif %}
+
             </div>
         </div>
     </div>
