@@ -3,7 +3,7 @@ from django import forms
 
 from .models import Product
 
-class GlassesDetailForm(ModelForm):
+class GlassesForm(ModelForm):
     title = forms.CharField(label='Название',
                             widget=forms.TextInput(
                                 attrs={
@@ -11,9 +11,13 @@ class GlassesDetailForm(ModelForm):
                                     'placeholder': 'Введите название Очков',
                                 }
                             ))
-    # cat = forms.CharField(label='Категория',
-    #                         widget=forms.Select(
-    #                         ))
+    cat = forms.ChoiceField(label='Категория',
+                            widget=forms.Select(
+                                attrs={
+                                    'class': 'form-control',
+                                    'placeholder': 'Введите описание Очков',
+                                }
+                            ))
     description = forms.CharField(label='Описание',
                             widget=forms.Textarea(
                                 attrs={

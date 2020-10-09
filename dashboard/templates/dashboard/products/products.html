@@ -8,17 +8,29 @@
 {% block content %}
     <div class="container p-5 content-block">
         <div class="col-md">
-            <div class="d-flex justify-content-between mb-3">
-                <h3>{{ title }}</h3>
-                <div class="row p-2">
+            <h3 class="text-center mb-4">{{ title }}</h3>
+
+            <div class=" p-2 d-flex justify-content-between mb-4">
+                <form action="" method="POST" class="row">
+                    {% csrf_token %}
                     <div class="col-md">
-                        <input type="text" class="form-control" >
+                        <input type="text" name="search" class="form-control" placeholder="Поиск">
                     </div>
                     <div class="col-md">
-                        <a href="" class="btn btn-success">Искать</a>
+                        <input type="submit" value="Искать" class="btn btn-success">
                     </div>
-                    <div class="col-md">
-                        <a href="" class="btn btn-success">Создать</a>
+                </form>
+                <div>
+                    <div class="dropdown">
+                        <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Создать
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="{% url 'glasses_create' %}">Очки</a>
+                            <a class="dropdown-item" href="#">Линзы</a>
+                            <a class="dropdown-item" href="#">Outlet</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -30,6 +42,7 @@
                         <th>Категория</th>
                         <th>Субкатегория</th>
                         <th>Цена</th>
+                        <th></th>
                         <th></th>
                     </tr>
 
@@ -46,9 +59,9 @@
                                 {% endif %}
                             </td>
                             <td>
-                                {% if product.subcat > 0 %}
+                                {% if product.subcat_id > 0 %}
                                     {% for subcat in subcategories %}
-                                        {% if subcat.id == product.subcat %}
+                                        {% if subcat.id == product.subcat_id %}
                                             {{ subcat.value }}
                                         {% endif %}
                                     {% endfor %}
@@ -62,8 +75,11 @@
                             <td>
                                 <a href="{% url 'glasses_detail' pk=product.id %}" class="btn btn-sm btn-info">Инфо</a>
                             </td>
-                        </tr>
+                            <td>
+                                <a href="{% url 'glasses_delete' pk=product.id %}" class="btn btn-sm btn-danger">Удалить</a>
+                            </td>
 
+                        </tr>
                     {% endfor %}
                 </table>
                 {% if products.has_other_pages %}

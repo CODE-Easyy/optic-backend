@@ -4,7 +4,9 @@ from .views import  (
     dashboard,
     products,
     glasses,
-    glasses_detail
+    glasses_detail,
+    create_glasses,
+    delete_glasses,
 )
 
 urlpatterns = [
@@ -12,4 +14,6 @@ urlpatterns = [
     path('products/', products, name='products'),
     path('products/glasses/', glasses, name='glasses'),
     path('products/glasses/detail/<int:pk>/', glasses_detail, name='glasses_detail'),
+    path('products/glasses/create/', create_glasses, name='glasses_create'),
+    path('products/glasses/delete/<int:pk>/', delete_glasses, name='glasses_delete'),
 ]
