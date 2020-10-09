@@ -70,9 +70,8 @@ def glasses_detail(request, pk=None):
     product = Product.objects.get(id=pk)
     form = GlassesForm(instance=product, cat=product.cat)
     if request.method == 'POST':
-        print(product.img_1)
-
-        form = GlassesForm(request.POST, instance=product)
+        print(request.POST)
+        form = GlassesForm(request.POST, files=request.FILES, instance=product)
         if form.is_valid():
             form.save()
             return redirect('products')

@@ -6,15 +6,15 @@ from .models import Product, SubCategory, Brand, Material
 
 class GlassesForm(ModelForm):
     CATEGORIES = [
-        ('glasses', 'glasses'),
-        ('frames', 'frames'),
+        ('glasses', 'Очки'),
+        ('frames', 'Линзы'),
         ('outlet', 'outlet'),
     ]
     SEXES = (
-        ('man', 'man'),
-        ('woman', 'woman'),
-        ('unisex', 'unisex'),
-        ('child', 'child'),
+        ('man', 'МУЖ'),
+        ('woman', 'ЖЕН'),
+        ('unisex', 'Унисекс'),
+        ('child', 'Детский'),
     )
     title = forms.CharField(label='Название',
                             widget=forms.TextInput(

@@ -73,10 +73,17 @@
                                 {{ product.price }} T
                             </td>
                             <td>
-                                <a href="{% url 'glasses_detail' pk=product.id %}" class="btn btn-sm btn-info">Инфо</a>
+                                {% if product.cat == 'glasses' %}
+                                    <a href="{% url 'glasses_detail' pk=product.id %}"
+                                       class="btn btn-sm btn-info">Инфо</a>
+                                    {% elif product.cat == 'frames' %}
+                                    <a href="{% url 'frame_detail' pk=product.id %}"
+                                       class="btn btn-sm btn-info">Инфо</a>
+                                {% endif %}
                             </td>
                             <td>
-                                <a href="{% url 'glasses_delete' pk=product.id %}" class="btn btn-sm btn-danger">Удалить</a>
+                                <a href="{% url 'glasses_delete' pk=product.id %}"
+                                   class="btn btn-sm btn-danger">Удалить</a>
                             </td>
 
                         </tr>

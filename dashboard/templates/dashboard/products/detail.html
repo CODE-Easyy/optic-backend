@@ -17,7 +17,7 @@
 {% block content %}
     <div class="container p-5 content-block">
         <a href="{% url 'products' %}" class="btn btn-primary m-3">Назад</a>
-        <form action="" method="POST">
+        <form action="" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="row">
                 <div class="col-md-4">
@@ -28,11 +28,13 @@
                 </div>
                 <div class="col-md-4">
                     {% if product.img_2 %}
+                        {{ form.img_2.label }}
                         <img width="100%" src="{{ product.img_2.url }}" alt="">
                     {% endif %}
                 </div>
                 <div class="col-md-4">
                     {% if product.img_3 %}
+                        {{ form.img_3.label }}
                         <img width="100%" src="{{ product.img_2.url }}" alt="">
                     {% endif %}
                 </div>
