@@ -18,5 +18,4 @@ class DetailEventSerializer(serializers.ModelSerializer):
                   'description',
                   'is_active',
                   'from_date',
-                  'to_date',
-                  'products')
+                  'to_date')
