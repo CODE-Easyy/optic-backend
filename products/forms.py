@@ -1,9 +1,20 @@
 from django.forms import ModelForm
 from django import forms
 
-from .models import Product
+from .models import Product, SubCategory
 
 class GlassesForm(ModelForm):
+    CATEGORIES = [
+        ('glasses', 'glasses'),
+        ('frames', 'frames'),
+        ('outlet', 'outlet'),
+    ]
+    SEXES = (
+        ('man', 'man'),
+        ('woman', 'woman'),
+        ('unisex', 'unisex'),
+        ('child', 'child'),
+    )
     title = forms.CharField(label='Название',
                             widget=forms.TextInput(
                                 attrs={
@@ -12,10 +23,19 @@ class GlassesForm(ModelForm):
                                 }
                             ))
     cat = forms.ChoiceField(label='Категория',
+                                 choices=CATEGORIES,
                             widget=forms.Select(
                                 attrs={
-                                    'class': 'form-control',
-                                    'placeholder': 'Введите описание Очков',
+                                    'class': 'form-control col-md-6',
+                                    'placeholder': 'Выбор',
+                                }
+                            ))
+    subcat = forms.ModelChoiceField(label='Субкатегория',
+                            queryset= SubCategory.objects.all(),
+                            widget=forms.Select(
+                                attrs={
+                                    'class': 'form-control col-md-6',
+                                    'placeholder': 'Выбор',
                                 }
                             ))
     description = forms.CharField(label='Описание',
