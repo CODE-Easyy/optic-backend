@@ -51,6 +51,17 @@ class ProductsList(ListAPIView):
         bool = self.request.query_params.get('bool', None)
         event = self.request.query_params.get('event', None)
 
+        #FILTERS
+        brands = self.request.query_params.get('brand', None)
+        materials = self.request.query_params.get('material', None)
+        radiuses = self.request.query_params.get('radius', None)
+        sexes = self.request.query_params.get('sex', None)
+        max_price = self.request.query_params.get('max', None)
+        min_price = self.request.query_params.get('min', None)
+        opt_powers = self.request.query_params.get('opt_power', None)
+        volumes = self.request.query_params.get('volume', None)
+
+
         if event:
             e = Event.objects.get(id=int(event))
             serializer = ProductsListSerializer(e.products, many=True, context={'request': request})
@@ -72,6 +83,27 @@ class ProductsList(ListAPIView):
                 qs = qs.filter(cat=cat)
             if subcat:
                 qs = qs.filter(subcat=subcat)
+
+            if brands:
+                brand = brands.strip().split(',')
+                qs = qs.filter(brand__value__in=brand)
+            if sexes:
+                sex = sexes.strip().split(',')
+                qs = qs.filter(sex__in=sex)
+            if materials:
+                material = materials.strip().split(',')
+                qs = qs.filter(material__value__in=material)
+            if opt_powers:
+                optical_power = opt_powers.strip().split(',')
+                qs = qs.filter(opt_power__value__in=optical_power)
+            if radiuses:
+                radius = radiuses.strip().split(',')
+                qs = qs.filter(radius__value__in=radius)
+
+            if min_price:
+                qs = qs.filter(price__gte=min_price)
+            if max_price:
+                qs = qs.filter(price__lte=max_price)
 
         paginator = ProductPagination()
         page = paginator.paginate_queryset(qs, self.request)
