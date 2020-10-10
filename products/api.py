@@ -111,7 +111,7 @@ class ProductsList(ListAPIView):
         paginator = ProductPagination()
         page = paginator.paginate_queryset(qs, self.request)
         serializer = ProductsListSerializer(page, many=True, context={'request': request})
-        return paginator.get_paginated_response(serializer.data)
+        return paginator.get_paginated_response(serializer.data, mini=min([i.price for i in Product.objects.all()]), maxi=max([i.price for i in Product.objects.all()]))
 
 
 

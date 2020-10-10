@@ -99,4 +99,10 @@ class Product(models.Model):
     def __str__(self):
         return "Product({}, {}, {})".format(self.title, self.cat, self.price)
 
+    def get_max_price(self):
+        return max([i.price for i in self.objects.all()])
+
+    def get_min_price(self):
+        return min([i.price for i in self.objects.all()])
+
 

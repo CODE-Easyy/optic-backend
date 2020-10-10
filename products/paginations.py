@@ -6,8 +6,10 @@ class ProductPagination(PageNumberPagination):
     page_size_query_param = 'page_size'
     max_page_size = 100
 
-    def get_paginated_response(self, data):
+    def get_paginated_response(self, data, maxi, mini):
         return Response({
             'count': self.page.paginator.count,
+            'min': mini,
+            'max': maxi,
             'results': data
         })
