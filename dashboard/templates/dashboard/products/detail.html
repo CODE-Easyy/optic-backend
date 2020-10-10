@@ -15,8 +15,9 @@
 
 
 {% block content %}
-    <div class="container p-5 content-block">
+    <div class="container p-2 content-block">
         <a href="{% url 'products' %}" class="btn btn-primary m-3">Назад</a>
+        <a href="{% url 'glasses_delete' pk=product.id %}" class="btn btn-danger m-3">Удалить</a>
         <form action="" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="row">
@@ -78,19 +79,36 @@
                     {{ form.discount.label }}
                     {{ form.discount }}
                 </div>
+
                 <div class="col-md">
-                    {{ form.sex.label }}
-                    {{ form.sex }}
+                    {% if not product.cat == 'frames' %}
+                        {{ form.sex.label }}
+                        {{ form.sex }}
+                    {% else %}
+                        {{ form.volume.label }}
+                        {{ form.volume }}
+                    {% endif %}
                 </div>
+
             </div>
             <div class="row">
                 <div class="col-md">
-                    {{ form.brand.label }}
-                    {{ form.brand }}
+                    {% if product.cat == 'frames' %}
+                        {{ form.radius.label }}
+                        {{ form.radius }}
+                    {% else %}
+                        {{ form.brand.label }}
+                        {{ form.brand }}
+                    {% endif %}
                 </div>
                 <div class="col-md">
-                    {{ form.material.label }}
-                    {{ form.material }}
+                    {% if product.cat == 'frames' %}
+                        {{ form.opt_power.label }}
+                        {{ form.opt_power }}
+                    {% else %}
+                        {{ form.material.label }}
+                        {{ form.material }}
+                    {% endif %}
                 </div>
             </div>
             <div class="row">

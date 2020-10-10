@@ -3,7 +3,7 @@
 
 {% block content %}
     <div class="container p-2 content-block">
-    <a href="{% url 'products' %}" class="btn btn-primary m-3">Назад</a>
+    <a href="{% url 'filters' %}" class="btn btn-primary m-3">Назад</a>
         <form action="" method="POST">
             {% csrf_token %}
             {{ form.as_p }}

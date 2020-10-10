@@ -7,7 +7,7 @@
         <h3>Вы уверены что хотите удалить {{ item }}?</h3>
         <form action="" method="POST">
             {% csrf_token %}
-            <a class="btn btn-success" href="{% url 'products' %}">Нет</a>
+            <a class="btn btn-success" href="{% url 'filters' %}">Нет</a>
             <input class="btn btn-danger" type="submit" name="Confirm" value="Да">
         </form>
     </div>

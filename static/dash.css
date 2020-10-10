@@ -9,7 +9,7 @@ body {
 
 }
 .content-block {
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.7);
     border-radius: 5px;
 }
 
@@ -31,14 +31,14 @@ a, a:hover, a:focus {
     min-width: 250px;
     max-width: 250px;
     min-height: 100vh;
-    background: rgba(0, 0, 0, 0.5) !important;
+    background: rgba(0, 0, 0, 0.7) !important;
     color: #fff;
     transition: all 0.3s;
 }
 
 #navbar {
     width: 100% !important;
-    background: rgba(0, 0, 0, 0.3) !important;
+    background: rgba(0, 0, 0, 0.7) !important;
 }
 
 .nav-link {

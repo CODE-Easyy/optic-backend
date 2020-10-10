@@ -22,25 +22,36 @@ class Brand(models.Model):
     def __str__(self):
         return self.value
 
+    class Meta:
+        ordering = ('value',)
+
 class Material(models.Model):
     value = models.CharField(max_length=100)
     def __str__(self):
         return self.value
+    class Meta:
+        ordering = ('value',)
 
 class Radius(models.Model):
     value = models.CharField(max_length=100)
     def __str__(self):
         return self.value
+    class Meta:
+        ordering = ('value',)
 
 class OpticalPower(models.Model):
     value = models.CharField(max_length=100)
     def __str__(self):
         return self.value
+    class Meta:
+        ordering = ('value',)
 
 class Volume(models.Model):
     value = models.CharField(max_length=100)
     def __str__(self):
         return self.value
+    class Meta:
+        ordering = ('value',)
 
 class Product(models.Model):
     ''' Products model '''

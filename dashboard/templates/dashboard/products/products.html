@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container p-5 content-block">
+    <div class="container p-2 content-block">
         <div class="col-md">
             <h3 class="text-center mb-4">{{ title }}</h3>
 
@@ -28,15 +28,15 @@
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item" href="{% url 'glasses_create' %}">Очки</a>
-                            <a class="dropdown-item" href="#">Линзы</a>
-                            <a class="dropdown-item" href="#">Outlet</a>
+                            <a class="dropdown-item" href="{% url 'frame_create' %}">Линзы</a>
+                            <a class="dropdown-item" href="{% url 'glasses_create' %}">Outlet</a>
                         </div>
                     </div>
                 </div>
             </div>
             <div>
 
-                <table class="table w-100">
+                <table class="table w-100 text-light">
                     <tr>
                         <th>Название</th>
                         <th>Категория</th>
@@ -73,7 +73,7 @@
                                 {{ product.price }} T
                             </td>
                             <td>
-                                {% if product.cat == 'glasses' %}
+                                {% if product.cat == 'glasses' or product.cat == 'outlet' %}
                                     <a href="{% url 'glasses_detail' pk=product.id %}"
                                        class="btn btn-sm btn-info">Инфо</a>
                                     {% elif product.cat == 'frames' %}

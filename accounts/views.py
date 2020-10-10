@@ -26,8 +26,12 @@ def loginPage(request):
 
         if user is not None:
             login(request, user)
-            messages.success(request, 'Login success!')
-            return redirect('dashboard')
+            if not user.is_superuser:
+                messages.error(request, 'You are not admin, Sorry =(')
+                return redirect('logout')
+            else:
+                messages.success(request, 'Login success!')
+                return redirect('dashboard')
         else:
             messages.info(request, 'Почта или пароль не правильны!')
             return render(request, 'accounts/login.html', context)
