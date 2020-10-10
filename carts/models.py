@@ -5,12 +5,8 @@ from datetime import datetime
 from products.models import Product
 
 class CartItem(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE),
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     count = models.IntegerField()
-
-
-    def __str__(self):
-        return "CartItem(product={}, count={})".format(self.product.id, self.count)
 
 class Cart(models.Model):
     items = models.ManyToManyField(CartItem)
