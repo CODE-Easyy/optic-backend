@@ -99,7 +99,10 @@ class ProductsList(ListAPIView):
             if radiuses:
                 radius = radiuses.strip().split(',')
                 qs = qs.filter(radius__value__in=radius)
-
+            if volumes:
+                volume = volumes.strip().split(',')
+                qs = qs.filter(volume__value__in=volume)
+            print(min_price, max_price)
             if min_price:
                 qs = qs.filter(price__gte=min_price)
             if max_price:

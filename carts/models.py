@@ -9,7 +9,7 @@ class CartItem(models.Model):
     count = models.IntegerField()
 
 class Cart(models.Model):
-    items = models.ManyToManyField(CartItem)
+    items = models.ManyToManyField(CartItem, null=True, blank=True)
     date_ordered = models.DateTimeField(default=datetime.now)
 
     def get_cart_items(self):

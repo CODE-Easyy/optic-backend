@@ -65,7 +65,7 @@ class Product(models.Model):
 
     title = models.CharField(max_length=100)
     description = models.TextField(null=True, blank=True)
-    price = models.FloatField(validators=[min_0])
+    price = models.FloatField(default=0)
 
     img_1 = models.ImageField(upload_to='products_images', null=True, blank=True)
     img_2 = models.ImageField(upload_to='products_images', null=True, blank=True)
