@@ -8,6 +8,8 @@ def ger_order(request):
 
         os.environ['DISPLAY'] = ':0'
 
+
+
         import time
         import webbrowser as wb
         import pyautogui as pg
