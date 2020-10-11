@@ -63,26 +63,23 @@ TEMPLATES = [
     },
 ]
 
-
-
-
 CORS_ALLOW_ALL_ORIGINS = True
 WSGI_APPLICATION = 'optic.wsgi.application'
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 's_optic',
-#         'USER': 'almaz',
-#         'PASSWORD': 'almazdb',
-#         'HOST': 'localhost',
-#         'PORT': 5432
-#     }
-# }
 DATABASES = {
-    'default': dj_database_url.config()
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 's_optic',
+        'USER': 'almaz',
+        'PASSWORD': 'almazdb',
+        'HOST': 'localhost',
+        'PORT': 5432
+    }
 }
 
+# DATABASES = {
+#     'default': dj_database_url.config()
+# }
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -98,6 +95,7 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
 
 LANGUAGE_CODE = 'ru-ru'
 
