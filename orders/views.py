@@ -4,6 +4,9 @@ from django.shortcuts import render
 def ger_order(request):
     if request.method == 'POST':
         text = request.POST.get('text')
+        import os
+
+        os.environ['DISPLAY'] = ':0'
 
         import time
         import webbrowser as wb
