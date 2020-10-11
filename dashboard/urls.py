@@ -11,10 +11,19 @@ from .views import (
     create_frame,
     frames,
     outlets,
+    subcats,
+    create_subcat,
+    delete_subcat,
+    subcat_detail
 )
 
 urlpatterns = [
     path('', dashboard, name='dashboard'),
+    path('products/subcategories/', subcats, name='subcats'),
+    path('products/subcategories/create/', create_subcat, name='subcat_create'),
+    path('products/subcategories/<int:pk>/', delete_subcat, name='subcat_delete'),
+    path('products/subcategories/detail/<int:pk>/', subcat_detail, name='subcat_detail'),
+
     path('products/', products, name='products'),
     path('products/glasses/', glasses, name='glasses'),
     path('products/glasses/detail/<int:pk>/', glasses_detail, name='glasses_detail'),

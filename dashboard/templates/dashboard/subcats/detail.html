@@ -1,0 +1,31 @@
+{% extends 'dashboard/base.html' %}
+
+{% block styles %}
+    <style>
+        form label {
+            color: black !important;
+        }
+
+        form * {
+            margin: 0 auto;
+            margin-bottom: 10px;
+        }
+    </style>
+{% endblock %}
+
+
+{% block content %}
+    <div class="container p-2 content-block">
+        <a href="{% url 'subcats' %}" class="btn btn-primary m-3">Назад</a>
+        <a href="{% url 'subcat_delete' pk=subcat.id %}" class="btn btn-danger m-3">Удалить</a>
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <input type="submit" class="btn btn-success m-3">
+
+        </form>
+    </div>
+{% endblock %}
+
+

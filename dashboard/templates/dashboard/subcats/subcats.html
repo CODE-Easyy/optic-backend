@@ -1,0 +1,71 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'products/style.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container p-2 content-block">
+        <div class="col-md">
+            <h3 class="text-center mb-4">{{ title }}</h3>
+
+            <div class=" p-2 d-flex justify-content-between mb-4">
+                <form action="" method="POST" class="row">
+                    {% csrf_token %}
+                    <div class="col-md">
+                        <input type="text" name="search" class="form-control" placeholder="Поиск">
+                    </div>
+                    <div class="col-md">
+                        <input type="submit" value="Искать" class="btn btn-success">
+                    </div>
+                </form>
+                <div>
+                    <div class="dropdown">
+                        <a href="{% url 'subcat_create' %}" class="btn btn-success " type="button"  aria-expanded="false">
+                            Создать
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div>
+
+                <table class="table w-100 text-light">
+                    <tr>
+                        <th>Название</th>
+                        <th>Категория</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+
+                    {% for subcat in subcats %}
+                        <tr>
+                            <td>{{ subcat.value }}</td>
+                            <td>
+                                {% if subcat.cat == 'frames' %}
+                                    Линзы
+                                {% elif subcat.cat == 'glasses' %}
+                                    Очки
+                                {% elif subcat.cat == 'outlet' %}
+                                    Outlet
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                <a href="{% url 'subcat_detail' pk=subcat.id %}"
+                                   class="btn btn-sm btn-info">Инфо</a>
+                            </td>
+                            <td>
+                                <a href="{% url 'subcat_delete' pk=subcat.id %}"
+                                   class="btn btn-sm btn-danger">Удалить</a>
+                            </td>
+
+                        </tr>
+                    {% endfor %}
+                </table>
+
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

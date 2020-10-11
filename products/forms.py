@@ -284,3 +284,29 @@ class GlassesForm(ModelForm):
         fields = (
         'is_discount', 'is_new', 'is_leader', 'title', 'cat', 'subcat', 'price', 'img_1', 'img_2', 'img_3', 'discount',
         'brand', 'material', 'sex', 'description')
+
+
+class SubcatForm(ModelForm):
+    CATEGORIES = [
+        ('glasses', 'Очки'),
+        ('frames', 'Линзы'),
+        ('outlet', 'outlet'),
+    ]
+    cat = forms.ChoiceField(label='Категория',
+                            choices=CATEGORIES,
+                            widget=forms.Select(
+                                attrs={
+                                    'class': 'form-control ',
+                                    'placeholder': 'Выбор',
+                                }
+                            ))
+    value = forms.CharField(label='Название',
+                            widget=forms.TextInput(
+                                attrs={
+                                    'class': 'form-control',
+                                    'placeholder': 'Введите название субкатегории',
+                                }
+                            ))
+    class Meta:
+        model = SubCategory
+        fields = '__all__'

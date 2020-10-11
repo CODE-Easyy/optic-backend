@@ -4,8 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 # from django.contrib import messages
 
-from products.forms import GlassesForm, FramesForm
-from products.models import Product, SubCategory, Brand, Material
+from products.forms import GlassesForm, FramesForm, SubcatForm
+from products.models import Product, SubCategory
 
 
 @login_required(login_url='login')
@@ -179,3 +179,67 @@ def delete_glasses(request, pk=None):
     }
     return render(request, 'dashboard/products/delete.html', context)
 
+
+
+@login_required(login_url='login')
+@staff_member_required(login_url='login')
+def create_subcat(request):
+    form = SubcatForm()
+
+    if request.method == 'POST':
+        form = GlassesForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('products')
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'dashboard/subcats/create.html', context)
+
+@login_required(login_url='login')
+@staff_member_required(login_url='login')
+def subcats(request):
+    subcats = SubCategory.objects.all()
+
+    if request.method == 'POST':
+        search = request.POST.get('search', None)
+        subcats = subcats.filter(value__contains=search)
+
+
+
+    context = {
+        'subcats': subcats,
+        'title': 'Субкатегории'
+    }
+    return render(request, 'dashboard/subcats/subcats.html', context)
+
+@login_required(login_url='login')
+@staff_member_required(login_url='login')
+def delete_subcat(request, pk=None):
+    item = SubCategory.objects.get(id=pk)
+    if request.method == 'POST':
+        item.delete()
+        return redirect('products')
+    context = {
+        'item': item.value
+    }
+    return render(request, 'dashboard/subcats/delete.html', context)
+
+
+@login_required(login_url='login')
+@staff_member_required(login_url='login')
+def subcat_detail(request, pk=None):
+    subcat = SubCategory.objects.get(id=pk)
+    form = SubcatForm(instance=subcat)
+    if request.method == 'POST':
+        form = SubcatForm(request.POST, instance=subcat)
+        if form.is_valid():
+            form.save()
+            return redirect('subcats')
+    context = {
+        'form':form,
+        'subcat': subcat,
+    }
+
+    return render(request, 'dashboard/subcats/detail.html', context)
