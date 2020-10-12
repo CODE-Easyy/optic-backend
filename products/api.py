@@ -138,7 +138,14 @@ class VolumesList(ListAPIView):
             qs = qs.filter(subcat=subcat).values('volume').distinct()
 
         qs = list(filter(None, map(getQS, qs)))
-        return Response(qs, status=status.HTTP_200_OK)
+        seen = set()
+        new_qs = []
+        for d in qs:
+            t = tuple(d.items())
+            if t not in seen:
+                seen.add(t)
+                new_qs.append(d)
+        return Response(new_qs, status=status.HTTP_200_OK)
 
 
 class MaterialsList(ListAPIView):
@@ -155,7 +162,14 @@ class MaterialsList(ListAPIView):
             qs = qs.filter(subcat=subcat).values('material').distinct()
 
         qs = list(filter(None, map(getQS, qs)))
-        return Response(qs, status=status.HTTP_200_OK)
+        seen = set()
+        new_qs = []
+        for d in qs:
+            t = tuple(d.items())
+            if t not in seen:
+                seen.add(t)
+                new_qs.append(d)
+        return Response(new_qs, status=status.HTTP_200_OK)
 
 class BrandsList(ListAPIView):
     ''' List of brands  '''
@@ -170,7 +184,14 @@ class BrandsList(ListAPIView):
         if subcat:
             qs = qs.filter(subcat=subcat).values('brand').distinct()
         qs = list(filter(None, map(getQS, qs)))
-        return Response(qs, status=status.HTTP_200_OK)
+        seen = set()
+        new_qs = []
+        for d in qs:
+            t = tuple(d.items())
+            if t not in seen:
+                seen.add(t)
+                new_qs.append(d)
+        return Response(new_qs, status=status.HTTP_200_OK)
 
 class RadiusesList(ListAPIView):
     ''' List of radiuses  '''
@@ -185,7 +206,14 @@ class RadiusesList(ListAPIView):
         if subcat:
             qs = qs.filter(subcat=subcat).values('radius').distinct()
         qs = list(filter(None, map(getQS, qs)))
-        return Response(qs, status=status.HTTP_200_OK)
+        seen = set()
+        new_qs = []
+        for d in qs:
+            t = tuple(d.items())
+            if t not in seen:
+                seen.add(t)
+                new_qs.append(d)
+        return Response(new_qs, status=status.HTTP_200_OK)
 
 class OpticalPowersList(ListAPIView):
     ''' List of brands  '''
@@ -200,6 +228,13 @@ class OpticalPowersList(ListAPIView):
         if subcat:
             qs = qs.filter(subcat=subcat).values('opt_power').distinct()
         qs = list(filter(None, map(getQS, qs)))
-        return Response(qs, status=status.HTTP_200_OK)
+        seen = set()
+        new_qs = []
+        for d in qs:
+            t = tuple(d.items())
+            if t not in seen:
+                seen.add(t)
+                new_qs.append(d)
+        return Response(new_qs, status=status.HTTP_200_OK)
 
 
