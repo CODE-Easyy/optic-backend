@@ -15,7 +15,6 @@ from .serializers import (
     ProductsListSerializer,
     SubCategoriesSerializer,
     ProductDetailSerializer,
-
 )
 
 from .map_filters import getQS
@@ -28,6 +27,7 @@ class ProductsCartList(ListAPIView):
         if ids:
             ids = list(map(int, str(ids).strip().split(',')))
             qs = Product.objects.filter(id__in=ids)
+            qs = qs.order_by('id')
             serializer = ProductsListSerializer(qs, many=True)
             return Response(serializer.data, status.HTTP_200_OK)
         return Response({"error": "ID's not listed!!!"}, status.HTTP_404_NOT_FOUND)
