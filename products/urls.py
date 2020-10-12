@@ -9,12 +9,14 @@ from .api import (
     OpticalPowersList,
     SubCategoriesList,
     ProductDetail,
+    ProductsCartList
 )
 
 
 
 urlpatterns = [
     path('list/', ProductsList.as_view()),
+    path('cart/list/', ProductsCartList.as_view()),
     path('detail/<int:pk>/', ProductDetail.as_view()),
     path('subcategories/', SubCategoriesList.as_view()),
 

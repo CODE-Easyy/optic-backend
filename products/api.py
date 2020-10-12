@@ -21,6 +21,20 @@ from .serializers import (
 from .map_filters import getQS
 from .paginations import ProductPagination
 
+class ProductsCartList(ListAPIView):
+    queryset = Product.objects.all()
+    def get(self, request, *args, **kwargs):
+        ids = self.request.query_params.get('ids', None)
+        if ids:
+            ids = list(map(int, str(ids).strip().split(',')))
+            qs = Product.objects.filter(id__in=ids)
+            serializer = ProductsListSerializer(qs, many=True)
+            return Response(serializer.data, status.HTTP_200_OK)
+        return Response({"error": "ID's not listed!!!"}, status.HTTP_404_NOT_FOUND)
+
+
+
+
 
 class SubCategoriesList(ListAPIView):
     queryset = SubCategory.objects.all()
@@ -129,7 +143,7 @@ class VolumesList(ListAPIView):
 
     queryset = Product.objects.all()
     def get(self, request, *args, **kwargs):
-        qs = Product.objects.all().values('volume').distinct();
+        qs = Product.objects.all().values('volume').distinct()
         cat = self.request.query_params.get('cat', None)
         subcat = self.request.query_params.get('subcat', None)
         if cat:
