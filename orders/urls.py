@@ -1,7 +1,8 @@
 from django.urls import path
 
 from .api import get_order
+from .views import  ger_order
 
 urlpatterns = [
-    path('order/', get_order),
+    path('order/', ger_order),
 ]
