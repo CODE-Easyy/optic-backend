@@ -9,3 +9,12 @@ class Contact(models.Model):
 
     vk_url = models.URLField(max_length=255, null=True, blank=True)
     insta_url = models.URLField(max_length=255, null=True, blank=True)
+
+
+class AboutUs(models.Model):
+    text = models.TextField(blank=True, null=True)
+
+
+class Delivery(models.Model):
+    title = models.CharField(max_length=255, blank=True, null=True)
+    descrtion = models.TextField(blank=True, null=True)

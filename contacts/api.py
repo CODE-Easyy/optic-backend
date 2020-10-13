@@ -4,9 +4,18 @@ from rest_framework.status import HTTP_200_OK
 
 
 
-from .serializers import ContactSerializer
-from .models import Contact
+from .serializers import ContactSerializer, AboutSerializer
+from .models import Contact, AboutUs
 
+
+class AboutUsView(RetrieveAPIView):
+    queryset = AboutUs.objects.all()
+
+    def get(self, request, *args, **kwargs):
+        AboutUs.objects.get_or_create(id=1)
+        q = AboutUs.objects.all().first()
+        serializer = AboutSerializer(q)
+        return Response(serializer.data, status=HTTP_200_OK)
 
 
 class ContactView(RetrieveAPIView):
