@@ -17,4 +17,4 @@ class AboutUs(models.Model):
 
 class Delivery(models.Model):
     title = models.CharField(max_length=255, blank=True, null=True)
-    descrtion = models.TextField(blank=True, null=True)
+    description = models.TextField(blank=True, null=True)

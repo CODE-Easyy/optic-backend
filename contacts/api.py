@@ -1,11 +1,15 @@
-from rest_framework.generics import RetrieveAPIView
+from rest_framework.generics import RetrieveAPIView, ListAPIView
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK
 
 
 
-from .serializers import ContactSerializer, AboutSerializer
-from .models import Contact, AboutUs
+from .serializers import ContactSerializer, AboutSerializer, DeliverySerializer
+from .models import Contact, AboutUs, Delivery
+
+class DeliveriesListView(ListAPIView):
+    queryset = Delivery.objects.all()
+    serializer_class = DeliverySerializer
 
 
 class AboutUsView(RetrieveAPIView):
