@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'events',
     'filters',
     'orders',
+    'contacts',
 ]
 
 MIDDLEWARE = [
@@ -75,9 +76,9 @@ DATABASES = {
         'PORT': 5432
     }
 }
-DATABASES = {
-    'default': dj_database_url.config()
-}
+# DATABASES = {
+#     'default': dj_database_url.config()
+# }
 
 AUTH_PASSWORD_VALIDATORS = [
     {

@@ -103,7 +103,7 @@ def create_glasses(request):
     form = GlassesForm()
 
     if request.method == 'POST':
-        form = GlassesForm(request.POST)
+        form = GlassesForm(request.POST, files=request.FILES)
         if form.is_valid():
             form.save()
             return redirect('products')
@@ -120,7 +120,7 @@ def create_frame(request):
     form = FramesForm()
 
     if request.method == 'POST':
-        form = FramesForm(request.POST)
+        form = FramesForm(request.POST, files=request.FILES)
         if form.is_valid():
             form.save()
             return redirect('products')
