@@ -18,7 +18,8 @@ def add_order_item(item: dict) -> dict:
 def get_order(request):
     if request.method == 'POST':
         data = request.data
-
+        if 'name' not in data:
+            return Response({'name': 'KAZHY'})
         if 'products' in data:
             products = data['products']
             products = list(map(add_order_item, products))
