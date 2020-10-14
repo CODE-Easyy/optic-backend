@@ -36,4 +36,6 @@ urlpatterns = [
 
     path('products/outlets/', outlets, name='outlets'),
 
+
+
 ]

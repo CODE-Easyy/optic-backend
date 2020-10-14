@@ -1,0 +1,27 @@
+{% extends 'dashboard/base.html' %}
+
+{% block styles %}
+    <style>
+        form label {
+            color: white !important;
+        }
+
+        form * {
+            margin: 0 auto;
+            margin-bottom: 10px;
+        }
+    </style>
+{% endblock %}
+
+
+{% block content %}
+    <div class="container p-2 content-block">
+        <h3 class="my-4 text-center">{{ title }}</h3>
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Сохранить" class="btn btn-success m-3">
+
+        </form>
+    </div>
+{% endblock %}

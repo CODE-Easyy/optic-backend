@@ -15,21 +15,23 @@ def add_order_item(item: dict) -> dict:
 
 
 @api_view(['POST'])
-def get_order(request, format=None):
+def get_order(request):
     if request.method == 'POST':
         data = request.data
-        products = data['products']
-        products = list(map(add_order_item, products))
-        order = Order(
-            name=data['name'],
-            address=data['adress'],
-            comment=data['comment'],
-            phone=data['phone'],
-            email=data['email']
-        )
-        order.save()
-        for pr in products:
-            order.products.add(pr)
+
+        if 'products' in data:
+            products = data['products']
+            products = list(map(add_order_item, products))
+            order = Order(
+                name=data['name'],
+                address=data['adress'],
+                comment=data['comment'],
+                phone=data['phone'],
+                email=data['email']
+            )
+            order.save()
+            for pr in products:
+                order.products.add(pr)
 
 
 
