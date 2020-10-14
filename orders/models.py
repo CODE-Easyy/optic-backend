@@ -19,3 +19,21 @@ class Order(models.Model):
     phone = models.CharField(max_length=100, null=True, blank=True)
     products = models.ManyToManyField(OrderItem)
     date = models.DateTimeField(default=datetime.now)
+    is_seen = models.BooleanField(default=False)
+
+
+
+    def get_products(self):
+        return self.products.all()
+
+    def get_total_sum(self):
+        res = 0
+        for i in self.products.all():
+            if i.product.is_discount:
+                res += i.product.price * (1 - (i.product.discount / 100))
+            else:
+                res += i.product.price
+        return sum([i.product.price for i in self.products.all()])
+
+    class Meta:
+        ordering = ('-id',)

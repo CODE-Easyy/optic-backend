@@ -75,8 +75,8 @@ class Product(models.Model):
     subcat = models.ForeignKey(SubCategory, blank=True, null=True, on_delete=models.SET_NULL)
 
     is_new = models.BooleanField(default=True)
-    is_leader = models.BooleanField()
-    is_discount = models.BooleanField()
+    is_leader = models.BooleanField(default=False)
+    is_discount = models.BooleanField(default=False)
     discount = models.IntegerField(validators=[min_0], null=True, default=0)
 
 

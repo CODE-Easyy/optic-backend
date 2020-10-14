@@ -1,0 +1,70 @@
+{% extends 'dashboard/base.html' %}
+
+
+{% block content %}
+    <div class="container p-2 content-block">
+        <div class="col-md">
+            <form action="" method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" class="btn btn-success" value="Сохранить">
+            </form>
+
+            <h4 class="my-3 text-center">Продукты</h4>
+            <div class="d-flex justify-content-between">
+                <table class="table w-100 text-light">
+                    <tr>
+                        <th>Название</th>
+                        <th>Категория</th>
+                        <th>Цена</th>
+                        <th>Колл-во</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+
+                    {% for product in products %}
+                        <tr>
+                            <td>{{ product.product.title }}</td>
+                            <td>
+                                {% if product.product.cat == 'frames' %}
+                                    Линзы
+                                {% elif product.product.cat == 'glasses' %}
+                                    Очки
+                                {% elif product.product.cat == 'outlet' %}
+                                    Outlet
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                {{ product.product.price }} T
+                            </td>
+
+                            <td>
+                                {{ product.count }} шт
+                            </td>
+
+                            <td>
+                                {% if product.product.cat == 'glasses' or product.product.cat == 'outlet' %}
+                                    <a href="{% url 'glasses_detail' pk=product.product.id %}"
+                                       class="btn btn-sm btn-info">Инфо</a>
+                                {% else %}
+                                    <a href="{% url 'frame_detail' pk=product.product.id %}"
+                                       class="btn btn-sm btn-info">Инфо</a>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="{% url 'glasses_delete' pk=product.product.id %}"
+                                   class="btn btn-sm btn-danger">Удалить</a>
+                            </td>
+
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td colspan="6">Общ. стоимость: {{ order.get_total_sum }} T</td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

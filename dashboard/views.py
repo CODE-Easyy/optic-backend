@@ -100,7 +100,7 @@ def frames(request):
 @login_required(login_url='login')
 @staff_member_required(login_url='login')
 def create_glasses(request):
-    form = GlassesForm()
+    form = GlassesForm(files=request.FILES)
 
     if request.method == 'POST':
         form = GlassesForm(request.POST, files=request.FILES)
@@ -117,14 +117,19 @@ def create_glasses(request):
 @login_required(login_url='login')
 @staff_member_required(login_url='login')
 def create_frame(request):
-    form = FramesForm()
+    product = Product(cat='frames')
+    product.save()
+    form = FramesForm(instance=product, cat=product.cat)
 
     if request.method == 'POST':
-        form = FramesForm(request.POST, files=request.FILES)
+
+        print(request.FILES)
+        form = FramesForm(request.POST, files=request.FILES, instance=product)
         if form.is_valid():
             form.save()
             return redirect('products')
-
+    else:
+        product.delete()
     context = {
         'form': form,
     }
@@ -136,6 +141,7 @@ def glasses_detail(request, pk=None):
     product = Product.objects.get(id=pk)
     form = GlassesForm(instance=product, cat=product.cat)
     if request.method == 'POST':
+        print(request.FILES)
         print(request.POST)
         form = GlassesForm(request.POST, files=request.FILES, instance=product)
         if form.is_valid():

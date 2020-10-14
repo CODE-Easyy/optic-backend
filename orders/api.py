@@ -6,12 +6,11 @@ from .models import Order, OrderItem
 from products.models import Product
 
 def add_order_item(item: dict) -> dict:
-    res = dict()
     product = Product.objects.get(id=item['id'])
     order_item = OrderItem.objects.get_or_create(
         product=product,
         count=item['count'])
-    res['id'] = order_item[0].id
+    res = order_item[0]
     return res
 
 
@@ -29,8 +28,8 @@ def get_order(request, format=None):
             email=data['email']
         )
         order.save()
-        map(order.products.add, products)
-
+        for pr in products:
+            order.products.add(pr)
 
 
 

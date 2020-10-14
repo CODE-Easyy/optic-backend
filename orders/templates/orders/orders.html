@@ -1,0 +1,67 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'products/style.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container p-2 content-block">
+        <div class="col-md">
+            <h3 class="text-center mb-4">{{ title }}</h3>
+
+            <div class=" p-2 d-flex justify-content-between mb-4">
+                <form action="" method="POST" class="row">
+                    {% csrf_token %}
+                    <div class="col-md">
+                        <input type="text" name="search" class="form-control" placeholder="Поиск">
+                    </div>
+                    <div class="col-md">
+                        <input type="submit" value="Искать" class="btn btn-success">
+                    </div>
+                </form>
+                <div>
+                    <div class="dropdown">
+
+                    </div>
+                </div>
+            </div>
+            <div>
+
+                <table class="table w-100 text-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Имя</th>
+                        <th>Номер</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+
+                    {% for order in orders %}
+                        <tr {% if not order.is_seen %}style="background: rgba(255, 0, 0,0.2)" {% endif %}>
+                            <td>{{ order.id }}</td>
+                            <td>
+                                {{ order.name }}
+                            </td>
+                            <td>
+                                {{ order.phone }}
+                            </td>
+
+                            <td>
+                                <a href="{% url 'order_detail' pk=order.id %}"
+                                   class="btn btn-sm btn-info">Инфо</a>
+                            </td>
+                            <td>
+                                <a href="{% url 'order_delete' pk=order.id %}"
+                                   class="btn btn-sm btn-danger">Удалить</a>
+                            </td>
+
+                        </tr>
+                    {% endfor %}
+                </table>
+
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
