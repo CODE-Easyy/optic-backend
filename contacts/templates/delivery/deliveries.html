@@ -1,0 +1,57 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'products/style.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container p-2 content-block">
+        <div class="col-md">
+            <h3 class="text-center mb-4">{{ title }}</h3>
+
+            <div class=" p-2 d-flex justify-content-between mb-4">
+                <form action="" method="POST" class="row">
+                    {% csrf_token %}
+                    <div class="col-md">
+                        <input type="text" name="search" class="form-control" placeholder="Поиск">
+                    </div>
+                    <div class="col-md">
+                        <input type="submit" value="Искать" class="btn btn-success">
+                    </div>
+                </form>
+                <div>
+                    <a class="btn btn-success" href="{% url 'delivery_create' %}">Создать</a>
+                </div>
+            </div>
+            <div>
+
+                <table class="table w-100 text-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Заголовок</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+
+                    {% for delivery in deliveries %}
+                        <tr>
+                            <td>{{ delivery.id }}</td>
+                            <td>{{ delivery.title }}</td>
+                            <td>
+                                <a href="{% url 'delivery_detail' pk=delivery.id %}"
+                                   class="btn btn-sm btn-info">Инфо</a>
+                            </td>
+                            <td>
+                                <a href="{% url 'delivery_delete' pk=delivery.id %}"
+                                   class="btn btn-sm btn-danger">Удалить</a>
+                            </td>
+
+                        </tr>
+                    {% endfor %}
+                </table>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

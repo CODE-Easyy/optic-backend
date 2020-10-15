@@ -13,9 +13,17 @@ from products.models import Product, SubCategory
 def dashboard(request):
     return render(request, 'dashboard/dashboard.html')
 
+
+def delete_null():
+    for product in Product.objects.all():
+        if len(product.title) == 0:
+            product.delete()
+
+
 @login_required(login_url='login')
 @staff_member_required(login_url='login')
 def products(request):
+    delete_null()
     products = Product.objects.all()
     subcategories = SubCategory.objects.all()
 
@@ -100,18 +108,9 @@ def frames(request):
 @login_required(login_url='login')
 @staff_member_required(login_url='login')
 def create_glasses(request):
-    form = GlassesForm(files=request.FILES)
-
-    if request.method == 'POST':
-        form = GlassesForm(request.POST, files=request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('products')
-
-    context = {
-        'form': form,
-    }
-    return render(request, 'dashboard/products/create.html', context)
+    product = Product(cat='glasses')
+    product.save()
+    return redirect('glasses_detail', pk=product.id)
 
 
 @login_required(login_url='login')
@@ -119,21 +118,8 @@ def create_glasses(request):
 def create_frame(request):
     product = Product(cat='frames')
     product.save()
-    form = FramesForm(instance=product, cat=product.cat)
+    return redirect('frame_detail', pk=product.id)
 
-    if request.method == 'POST':
-
-        print(request.FILES)
-        form = FramesForm(request.POST, files=request.FILES, instance=product)
-        if form.is_valid():
-            form.save()
-            return redirect('products')
-    else:
-        product.delete()
-    context = {
-        'form': form,
-    }
-    return render(request, 'dashboard/products/create.html', context)
 
 @login_required(login_url='login')
 @staff_member_required(login_url='login')
@@ -192,11 +178,12 @@ def delete_glasses(request, pk=None):
 def create_subcat(request):
     form = SubcatForm()
 
+
     if request.method == 'POST':
-        form = GlassesForm(request.POST)
+        form = SubcatForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('products')
+            return redirect('subcats')
 
     context = {
         'form': form,
