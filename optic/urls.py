@@ -14,8 +14,8 @@ urlpatterns = [
         path('events/', include('events.urls')),
         path('products/', include('products.urls')),
     ])),
-    path('dashboard/', include('orders.urls')),
-    path('dashboard/', include('contacts.urls')),
+    path('', include('orders.urls')),
+    path('', include('contacts.urls')),
 
 
     path('', TemplateView.as_view(template_name='index.html')),
