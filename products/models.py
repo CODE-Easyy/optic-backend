@@ -1,5 +1,11 @@
 from django.db import models
+import uuid
+import os
 
+def get_file_path(instance, filename):
+    ext = filename.split('.')[-1]
+    filename = "%s.%s" % (uuid.uuid4(), ext)
+    return os.path.join('products_images', filename)
 
 from .validators import min_0
 
@@ -67,9 +73,9 @@ class Product(models.Model):
     description = models.TextField(null=True, blank=True)
     price = models.FloatField(default=0)
 
-    img_1 = models.ImageField(upload_to='products_images', null=True, blank=True)
-    img_2 = models.ImageField(upload_to='products_images', null=True, blank=True)
-    img_3 = models.ImageField(upload_to='products_images', null=True, blank=True)
+    img_1 = models.ImageField(upload_to=get_file_path, null=True, blank=True)
+    img_2 = models.ImageField(upload_to=get_file_path, null=True, blank=True)
+    img_3 = models.ImageField(upload_to=get_file_path, null=True, blank=True)
 
     cat = models.CharField(max_length=10, choices=CATEGORIES)
     subcat = models.ForeignKey(SubCategory, blank=True, null=True, on_delete=models.SET_NULL)
