@@ -65,7 +65,7 @@ TEMPLATES = [
 
 CORS_ALLOW_ALL_ORIGINS = True
 WSGI_APPLICATION = 'optic.wsgi.application'
-
+#
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
