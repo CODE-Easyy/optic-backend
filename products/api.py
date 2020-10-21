@@ -4,6 +4,7 @@ from rest_framework.generics import (
     ListAPIView,
     RetrieveAPIView
 )
+import json
 
 from .models import (
     Product,
@@ -53,6 +54,31 @@ class SubCategoriesList(ListAPIView):
 class ProductDetail(RetrieveAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductDetailSerializer
+
+    def retrieve(self, request, *args, **kwargs):
+        obj = self.get_object()
+        data = {
+            "id": obj.pk,
+            "title": obj.title,
+            "description": obj.description,
+            "price": obj.price,
+            "img_1": obj.img_1.absolute_url if obj.img_1 else None,
+            "img_2": obj.img_2.absolute_url if obj.img_2 else None,
+            "img_3": obj.img_3.absolute_url if obj.img_3 else None,
+            "cat": obj.cat,
+            "is_new": obj.is_new,
+            "is_leader": obj.is_leader,
+            "is_discount": obj.is_discount,
+            "discount": obj.discount,
+            "sex": obj.sex,
+            "subcat": obj.subcat.id,
+            "brand": obj.brand.value if obj.brand else None,
+            "material": obj.material.value if obj.material else None,
+            "radius": obj.radius.value if obj.radius else None,
+            "opt_power": obj.opt_power.value if obj.opt_power else None,
+            "volume": obj.volume.value if obj.volume else None
+        }
+        return Response(data)
 
 class ProductsList(ListAPIView):
     queryset = Product.objects.all()

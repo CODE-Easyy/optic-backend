@@ -69,9 +69,9 @@ WSGI_APPLICATION = 'optic.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'optic',
-        'USER': 'optic',
-        'PASSWORD': 'optic',
+        'NAME': 's_optic',
+        'USER': 'almaz',
+        'PASSWORD': 'almazdb',
         'HOST': 'localhost',
         'PORT': 5432
     }
