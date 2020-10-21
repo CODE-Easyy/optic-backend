@@ -9,9 +9,7 @@ SECRET_KEY = '8^*+=oy+-pujem*%@5e5mb3xf=h@uw!&$k#6)5+8&8+ncpfaj)'
 
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    '195.210.47.31',
-    '195.210.47.31:80']
+ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -68,6 +66,16 @@ TEMPLATES = [
 CORS_ALLOW_ALL_ORIGINS = True
 WSGI_APPLICATION = 'optic.wsgi.application'
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 's_optic',
+#         'USER': 'almaz',
+#         'PASSWORD': 'almazdb',
+#         'HOST': 'localhost',
+#         'PORT': 5432
+#     }
+# }
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
