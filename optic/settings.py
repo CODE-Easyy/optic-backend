@@ -79,16 +79,7 @@ WSGI_APPLICATION = 'optic.wsgi.application'
 # DATABASES = {
 #     'default': dj_database_url.config()
 # }
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'optic',
-        'USER': 'optic',
-        'PASSWORD': 'optic',
-        'HOST': 'localhost',
-        'PORT': 5432
-    }
-}
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
