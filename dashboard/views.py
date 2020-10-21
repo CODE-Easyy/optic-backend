@@ -11,7 +11,7 @@ from products.models import Product, SubCategory
 @login_required(login_url='login')
 @staff_member_required(login_url='login')
 def dashboard(request):
-    return render(request, 'dashboard/dashboard.html')
+    return redirect('products')
 
 
 def delete_null():
