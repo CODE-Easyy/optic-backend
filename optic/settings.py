@@ -1,7 +1,7 @@
 from pathlib import Path
 
-import django_heroku
-import dj_database_url
+#import django_heroku
+#import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -143,7 +143,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'claytemateam@gmail.com'
 EMAIL_HOST_PASSWORD = 'dujtneryirlqvdfd'
 
-django_heroku.settings(locals())
+#django_heroku.settings(locals())
 
 try:
     from .local_settings import *
