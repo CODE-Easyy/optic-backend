@@ -144,3 +144,8 @@ EMAIL_HOST_USER = 'claytemateam@gmail.com'
 EMAIL_HOST_PASSWORD = 'dujtneryirlqvdfd'
 
 django_heroku.settings(locals())
+
+try:
+    from .local_settings import *
+except ImportError:
+    pass
