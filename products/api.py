@@ -71,7 +71,7 @@ class ProductDetail(RetrieveAPIView):
             "is_discount": obj.is_discount,
             "discount": obj.discount,
             "sex": obj.sex,
-            "subcat": obj.subcat.id,
+            "subcat": obj.subcat.id if obj.subcat else None,
             "brand": obj.brand.value if obj.brand else None,
             "material": obj.material.value if obj.material else None,
             "radius": obj.radius.value if obj.radius else None,
