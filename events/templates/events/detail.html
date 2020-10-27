@@ -1,0 +1,138 @@
+{% extends 'dashboard/base.html' %}
+
+{% block styles %}
+    <style>
+        form label {
+            color: black !important;
+        }
+
+        form * {
+            margin: 0 auto;
+            margin-bottom: 10px;
+        }
+        .row {
+            padding-left: 10%;
+            padding-right: 10%;
+        }
+        span {
+            color: black;
+        }
+    </style>
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/css/tempusdominus-bootstrap-4.min.css" integrity="sha256-XPTBwC3SBoWHSmKasAk01c08M6sIA5gF5+sRxqak2Qs=" crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
+
+
+{% block content %}
+    <div class="container p-2 content-block">
+        <a href="{% url 'events' %}" class="btn btn-primary m-3">Назад</a>
+        <a href="{% url 'event_delete' pk=event.id %}" class="btn btn-danger m-3">Удалить</a>
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class='row'>
+                {% if event.img %}
+                    <div class='col-md'>
+                        <img width="100%" src="{{ event.img.url }}" alt="">
+                    </div>
+                {% endif %}
+                {% if event.img_slide %}
+                    <div class='col-md'>
+                        <img width="100%" src="{{ event.img_slide.url }}" alt="">
+                    </div>
+                {% endif %}
+            </div>
+            <div class='row'> 
+                <div class='col-md'>
+                    {{form.is_active.label}}
+                    {{form.is_active}}
+                    <br>
+                    <br>
+                    {{form.title.label}}
+                    {{form.title}}
+                </div>
+            </div>
+            <div class='row'> 
+                <div class='col-md'>
+                    {{form.from_date.label}}
+                    {{form.from_date}}
+                </div>
+                <h3 class="pt-4">
+                    >
+                </h3>
+                <div class='col-md'>
+                    {{form.to_date.label}}
+                    {{form.to_date}}
+                </div>
+            </div>
+            <div class='row'> 
+                <div class='col-md'>
+                    {{form.img.label}}
+                    {{form.img}}
+                </div>
+        
+                <div class='col-md'>
+                    {{form.img_slide.label}}
+                    {{form.img_slide}}
+                </div>
+            </div>
+            <div class='row'> 
+                <div class='col-md'>
+                    {{form.description.label}}
+                    {{form.description}}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md">
+                    {{form.products.label}}
+                   {{form.products}}
+                </div>
+            </div>
+
+            
+            <input type="submit" class="btn btn-success m-3">
+
+        </form>
+    </div>
+{% endblock %}
+
+
+{% block scripts %}
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+  <!-- XDSoft DateTimePicker -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css" integrity="sha256-DOS9W6NR+NFe1fUhEE0PGKY/fubbUCnOfTje2JMDw3Y=" crossorigin="anonymous" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha256-FEqEelWI3WouFOo2VWP/uJfs1y8KJ++FLh2Lbqc8SJk=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/js/tempusdominus-bootstrap-4.min.js" integrity="sha256-z0oKYg6xiLq3yJGsp/LsY9XykbweQlHl42jHv2XTBz4=" crossorigin="anonymous"></script>
+
+<script>
+    
+    $(function () {
+      $("#datetimepicker").datetimepicker({
+          format: 'd/m/Y H:y'
+      });
+      $("#datetimepicker1").datetimepicker({
+          format: 'd/m/Y H:y'
+      });
+
+      var s1 = $("#datetimepicker").val();
+      var s2 = $("#datetimepicker1").val();
+      var d1 = new Date(s1);
+      var d2 = new Date(s2);
+      s1 = d1.getDate() + '/' + (d1.getMonth() + 1) + '/' + d1.getFullYear() + ' ' + d1.getHours() + ':' + d1.getMinutes();
+      s2 = d2.getDate() + '/' + (d2.getMonth() + 1) + '/' + d2.getFullYear() + ' ' + d2.getHours() + ':' + d2.getMinutes();
+      $("#datetimepicker").val(s1);
+      $("#datetimepicker1").val(s2);
+
+    });
+
+    $(document).ready(function() {
+        $('.js-example-basic-single').select2();
+        $('.js-example-basic-multiple').select2();
+    });
+  </script>
+
+
+{% endblock%}

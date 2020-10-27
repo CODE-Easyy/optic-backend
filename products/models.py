@@ -103,7 +103,7 @@ class Product(models.Model):
         ordering = ('title', 'price',)
 
     def __str__(self):
-        return "Product({}, {}, {})".format(self.title, self.cat, self.price)
+        return "{} | {} | {} T".format(self.title, self.cat, self.price)
 
     def get_max_price(self):
         return max([i.price for i in self.objects.all()])

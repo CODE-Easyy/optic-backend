@@ -3,6 +3,9 @@ from datetime import datetime
 
 from products.models import Product
 
+
+
+
 class Event(models.Model):
     title = models.CharField(max_length=255)
     img = models.ImageField(upload_to='events', null=True, blank=True)
